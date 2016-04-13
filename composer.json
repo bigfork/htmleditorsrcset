@@ -1,0 +1,20 @@
+{
+	"name": "bigfork/htmleditorsrcset",
+	"description": "Simple srcset integration with SilverStripe’s HtmlEditorField",
+	"type": "silverstripe-module",
+	"homepage": "https://github.com/bigfork/htmleditorsrcset",
+	"keywords": ["silverstripe", "htmleditor", "htmleditorfield", "srcset", "retina", "responsive", "images"],
+	"authors": [
+		{
+			"name": "Loz Calver",
+			"email": "lozcalver@bigfork.co.uk"
+		}
+	],
+	"license": "BSD-3-Clause",
+	"support": {
+		"issues": "https://github.com/bigfork/htmleditorsrcset/issues"
+	},
+	"require": {
+		"silverstripe/framework": "^3.1.9"
+	}
+}

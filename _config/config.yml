@@ -1,0 +1,6 @@
+---
+Name: htmleditorsrcset
+---
+HtmlEditorField:
+  extensions:
+    - Bigfork\HtmlEditorSrcset\HtmlEditorFieldExtension
