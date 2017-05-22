@@ -1,20 +1,14 @@
 # HtmlEditorSrcset
 
-Simple `srcset` integration with SilverStripe’s `HtmlEditorField`.
+Simple `srcset` integration with SilverStripe’s `HTMLEditorField`.
 
 ## What it does
 
-Takes this:
+Adds a `srcset` attribute for the provided pixel densities to every image inserted through TinyMCE. Resulting in an image tag like:
 
 ```html
-<img width="100" height="50" src="assets/_resampled/ResizedImage10050-image.jpg" />
-```
-
-And adds a `srcset` attribute for the provided pixel densities:
-
-```html
-<img width="100" height="50" src="assets/_resampled/ResizedImage10050-image.jpg"
-	srcset="assets/_resampled/ResizedImage10050-image.jpg 1x, assets/_resampled/ResizedImage200100-image.jpg 2x"
+<img width="100" height="50" src="assets/530dffc7f9/image__ResizedImageWzE5OCwxMzJd.jpg"
+    srcset="assets/530dffc7f9/image__ResizedImageWzE5OCwxMzJd.jpg 1x, assets/530dffc7f9/image__ResizedImageWzM5NiwyNjRd.jpg 2x"
 />
 ```
 
@@ -22,20 +16,11 @@ And adds a `srcset` attribute for the provided pixel densities:
 
 This module doesn’t add a `sizes` attribute, nor does it specify widths in `srcset` - only pixel densities.
 
-## Adding other pixel densities
+## Specifying your own pixel densities
 
-In your `config.yml`:
+The module will add sources for 1x and 2x pixel densities by default. You can set your own pixel densities by setting the following in your `config.yml`:
 
 ```yml
-Bigfork\HtmlEditorSrcset\HtmlEditorFieldExtension:
-  densities: [1, 2, 3]
-```
-
-## Removing pixel densities
-
-Unfortunately there’s no way to remove or replace array config values in YAML, only merge new ones. So this has to be done in your `_config.php`:
-
-```php
-Config::inst()->remove('Bigfork\HtmlEditorSrcset\HtmlEditorFieldExtension', 'densities');
-Config::inst()->update('Bigfork\HtmlEditorSrcset\HtmlEditorFieldExtension', 'densities', array(1, 1.5));
+Bigfork\HTMLEditorSrcset\ImageShortcodeHandler:
+  pixel_densities: [1, 2, 3]
 ```
