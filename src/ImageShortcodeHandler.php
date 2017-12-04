@@ -3,6 +3,7 @@
 namespace Bigfork\HTMLEditorSrcset;
 
 use SilverStripe\Assets\Image;
+use SilverStripe\Assets\Shortcodes\ImageShortcodeProvider;
 use SilverStripe\Core\Config\Config;
 use SilverStripe\Core\Config\Configurable;
 use SilverStripe\Core\Convert;
@@ -39,10 +40,8 @@ class ImageShortcodeHandler
     public static function handle_shortcode($args, $content, $parser, $shortcode, $extra = array())
     {
         // Find appropriate record, with fallback for error handlers
-        $record = Image::find_shortcode_record($args, $errorCode);
-        if ($errorCode) {
-            $record = Image::find_error_record($errorCode);
-        }
+        $record = ImageShortcodeProvider::find_shortcode_record($args);
+
         if (!$record) {
             return null; // There were no suitable matches at all.
         }
