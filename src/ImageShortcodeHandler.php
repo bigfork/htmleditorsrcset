@@ -70,7 +70,7 @@ class ImageShortcodeHandler
 
             foreach ($densities as $density) {
                 $density = (int)$density;
-                $resized = $record->ResizedImage(ceil($width * $density), ceil($height * $density));
+                $resized = $record->ResizedImage((int)ceil($width * $density), (int)ceil($height * $density));
                 // Output in the format "assets/foo.jpg 1x"
                 $srcsetSources[] = $resized->getURL() . " {$density}x";
             }
