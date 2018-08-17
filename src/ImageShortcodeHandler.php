@@ -72,7 +72,10 @@ class ImageShortcodeHandler
                 $density = (int)$density;
                 $resized = $record->ResizedImage((int)ceil($width * $density), (int)ceil($height * $density));
                 // Output in the format "assets/foo.jpg 1x"
-                $srcsetSources[] = $resized->getURL() . " {$density}x";
+                $resizedUrl = $resized->getURL();
+                if ($resizedUrl) {
+                    $srcsetSources[] = $resizedUrl . " {$density}x";
+                }
             }
         }
 
