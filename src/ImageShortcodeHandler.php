@@ -53,27 +53,28 @@ class ImageShortcodeHandler
         if ($record instanceof Image) {
             $width = isset($args['width']) ? intval($args['width']) : null;
             $height = isset($args['height']) ? intval($args['height']) : null;
-            $hasCustomDimensions = ($width && $height);
-            if ($hasCustomDimensions && (($width != $record->getWidth()) || ($height != $record->getHeight()))) {
-                $resized = $record->ResizedImage($width, $height);
-                // Make sure that the resized image actually returns an image
-                if ($resized) {
-                    $src = $resized->getURL();
+            if ($width && $height) {
+                if ($width != $record->getWidth() || $height != $record->getHeight()) {
+                    $resized = $record->ResizedImage($width, $height);
+                    // Make sure that the resized image actually returns an image
+                    if ($resized && $resizedUrl = $resized->getURL()) {
+                        $src = $resizedUrl;
+                    }
                 }
-            }
 
-            // Output srcset attribute for different pixel densities
-            $densities = (array)static::config()->get('pixel_densities');
-            if (empty($densities)) {
-                $densities = (array)static::config()->get('default_pixel_densities');
-            }
+                // Output srcset attribute for different pixel densities
+                $densities = (array)static::config()->get('pixel_densities');
+                if (empty($densities)) {
+                    $densities = (array)static::config()->get('default_pixel_densities');
+                }
 
-            foreach ($densities as $density) {
-                $density = (int)$density;
-                $resized = $record->ResizedImage((int)ceil($width * $density), (int)ceil($height * $density));
-                // Output in the format "assets/foo.jpg 1x"
-                if ($resized && $resizedUrl = $resized->getURL()) {
-                    $srcsetSources[] = $resizedUrl . " {$density}x";
+                foreach ($densities as $density) {
+                    $density = (int)$density;
+                    $resized = $record->ResizedImage((int)ceil($width * $density), (int)ceil($height * $density));
+                    // Output in the format "assets/foo.jpg 1x"
+                    if ($resized && $resizedUrl = $resized->getURL()) {
+                        $srcsetSources[] = $resizedUrl . " {$density}x";
+                    }
                 }
             }
         }
