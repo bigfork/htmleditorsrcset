@@ -51,8 +51,8 @@ class ImageShortcodeHandler
         // Check if a resize is required
         $src = $record->Link();
         if ($record instanceof Image) {
-            $width = isset($args['width']) ? $args['width'] : null;
-            $height = isset($args['height']) ? $args['height'] : null;
+            $width = isset($args['width']) ? intval($args['width']) : null;
+            $height = isset($args['height']) ? intval($args['height']) : null;
             $hasCustomDimensions = ($width && $height);
             if ($hasCustomDimensions && (($width != $record->getWidth()) || ($height != $record->getHeight()))) {
                 $resized = $record->ResizedImage($width, $height);
