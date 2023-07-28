@@ -15,14 +15,10 @@
 		"issues": "https://github.com/bigfork/htmleditorsrcset/issues"
 	},
 	"require": {
-		"silverstripe/framework": "^4.0"
-	},
+        "silverstripe/cms": "^4 || ^5",
+        "silverstripe/framework": "^4 || ^5"
+    },
     "autoload": {
         "psr-4": {"Bigfork\\HTMLEditorSrcset\\": "src/"}
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "2.x-dev"
-        }
     }
 }
