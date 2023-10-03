@@ -1,0 +1,6 @@
+---
+Name: htmleditorsrcset
+---
+SilverStripe\Assets\Shortcodes\ImageShortcodeProvider:
+  attribute_whitelist:
+    - srcset
