@@ -15,8 +15,8 @@
 		"issues": "https://github.com/bigfork/htmleditorsrcset/issues"
 	},
 	"require": {
-        "silverstripe/assets": "^1 || ^2",
-        "silverstripe/framework": "^4 || ^5"
+        "silverstripe/assets": "^3",
+        "silverstripe/framework": "^6"
     },
     "autoload": {
         "psr-4": {"Bigfork\\HTMLEditorSrcset\\": "src/"}

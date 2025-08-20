@@ -2,14 +2,11 @@
 
 namespace Bigfork\HTMLEditorSrcset;
 
-use Psr\SimpleCache\CacheInterface;
 use SilverStripe\Assets\File;
 use SilverStripe\Assets\Image;
 use SilverStripe\Assets\Shortcodes\ImageShortcodeProvider;
 use SilverStripe\Assets\Storage\AssetStore;
-use SilverStripe\Core\Config\Config;
 use SilverStripe\Core\Config\Configurable;
-use SilverStripe\Core\Convert;
 use SilverStripe\Core\Injector\Injector;
 
 class ImageShortcodeHandler
@@ -126,7 +123,7 @@ class ImageShortcodeHandler
             return in_array($k, $whitelist) && (strlen(trim($v ?? '')) || $k === 'alt');
         }, ARRAY_FILTER_USE_BOTH);
 
-        $markup = ImageShortcodeProvider::createImageTag($attrs);
+        $markup = static::createImageTag($attrs);
 
         // Cache it for future reference
         if ($fileFound) {
@@ -138,6 +135,22 @@ class ImageShortcodeHandler
         }
 
         return $markup;
+    }
+
+    protected static function createImageTag(array $attributes): string
+    {
+        $preparedAttributes = '';
+        foreach ($attributes as $attributeKey => $attributeValue) {
+            if (strlen($attributeValue ?? '') > 0 || $attributeKey === 'alt') {
+                $preparedAttributes .= sprintf(
+                    ' %s="%s"',
+                    $attributeKey,
+                    htmlspecialchars($attributeValue ?? '', ENT_QUOTES, 'UTF-8', false)
+                );
+            }
+        }
+
+        return "<img{$preparedAttributes} />";
     }
 
     private static function updateLoadingValue(array $args, ?int $width, ?int $height): array
