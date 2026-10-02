@@ -190,14 +190,14 @@ class ImageShortcodeHandler
         return $grant;
     }
 
+    /**
+     * Matches ImageShortcodeProvider::find_error_record(). The getErrorRecordFor() extension
+     * hook returns an ErrorPage, which isn't a File and breaks getGrant() and getURL()
+     */
     protected static function find_error_record($errorCode)
     {
-        $result = ImageShortcodeProvider::singleton()->invokeWithExtensions('getErrorRecordFor', $errorCode);
-        $result = array_filter($result ?? []);
-        if ($result) {
-            return reset($result);
-        }
-
-        return null;
+        return Image::create([
+            'Title' => _t(ImageShortcodeProvider::class . '.IMAGENOTFOUND', 'Image not found'),
+        ]);
     }
 }
